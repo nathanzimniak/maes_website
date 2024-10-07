@@ -1,0 +1,11 @@
+* {
+    margin: 0px; /* Retire toutes les marges définies par défaut */
+    padding: 0px; /* Retire tous les paddings définis par défaut */
+}
+
+body {
+    display: flex;
+    flex-direction: row; /* Disposition horizontale des enfants */
+    overscroll-behavior-x: none; /* Empêche le slide back */
+    background-color: var(--blue_white);
+}

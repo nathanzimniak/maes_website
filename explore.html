@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAES | Magnetized Accretion Ejection Structures</title>
+    <link rel="stylesheet" href="./css/variables.css">
+    <link rel="stylesheet" href="./css/body.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/explore.css">
+    <!-- Libraries -->
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <!---------->
+    <!---------->
+    <!-- MENU -->
+    <!---------->
+    <!---------->
+    <header>
+        <!----------------->
+        <!-- MENU HEADER -->
+        <!----------------->
+        <div id="menu_header">
+            <div id="test">
+                <img src="./assets/img/maes.png"/>
+                <p id="menu_title">
+                    <span id="menu_title_jet" style="display: block; line-height: 1.3;">Jet</span>
+                    <span id="menu_title_emitting" style="display: block; line-height: 1.3;">Emitting</span>
+                    <span id="menu_title_disk" style="display: block; line-height: 1.3;">Disk</span>
+                </p>
+            </div>
+            <div><hr></div>
+        </div>
+        <!--------------->
+        <!-- MENU BODY -->
+        <!--------------->
+        <div id="menu_body">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="home.html" id="menu_home">
+                            <img src="./assets/img/home.png"/>
+                            <p>Home</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="explore.html" id="menu_explore">
+                            <img src="./assets/img/explore.png"/>
+                            <p class="menu_nav_text">Explore MHD solutions</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="faq.html" id="menu_faq">
+                            <img src="./assets/img/faq.png"/>
+                            <p class="menu_nav_text">FAQ</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="contact.html" id="menu_contact">
+                            <img src="./assets/img/contact.png"/>
+                            <p class="menu_nav_text">Contact</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!----------------->
+        <!-- MENU FOOTER -->
+        <!----------------->
+        <div id="menu_footer">
+            <div><hr></div>
+            <p>© Nathan Zimniak - <span id="year"></span></p>
+        </div>
+    </header>
+    
+
+
+
+
+    <main>
+        <!----------->
+        <!----------->
+        <!----------->
+        <!-- APP_1 -->
+        <!----------->
+        <!----------->
+        <!----------->
+        <div id="app_1">
+            <div class="box" id="parameter_space">
+                <!------------------------>
+                <!------------------------>
+                <!-- PARAMETER SETTINGS -->
+                <!------------------------>
+                <!------------------------>
+                <div id="parameter_space_settings">
+                    <!----------->
+                    <!-- Title -->
+                    <!----------->
+                    <div class="app_title black"><p>PARAMETER SPACE</p></div>
+                    <!------------->
+                    <!-- Buttons -->
+                    <!------------->
+                    <div id="parameter_space_settings_buttons">
+                        <!-- Button solution type -->
+                        <div class="double_button">
+                            <button class="button_left"  id="button-sm" onclick="update_solution_type('superSM')">Super-SM</button>
+                            <button class="button_right" id="button-a"  onclick="update_solution_type('superA')" >Super-A</button>
+                        </div>
+                        <!-- Button parameter space -->
+                        <div class="double_button">
+                            <button class="button_left"  id="button-xi-mu"        onclick="update_parameter_space('xi-mu')"       >`\xi (\mu, p)`</button>
+                            <button class="button_right" id="button-lambda-kappa" onclick="update_parameter_space('lambda-kappa')">`\lambda (\kappa, \omega)`</button>
+                        </div>
+                    </div>
+                    <!------------>
+                    <!-- Sliders-->
+                    <!------------>
+                    <div id="parameter-space-settings-sliders">
+                        <!-- Slider epsilon -->
+                        <div class="slider-box">
+                            <div class="text-slider-1 black">
+                                <p>Aspect ratio</p>
+                                <div class="text-slider-2 black">
+                                    <p>`\epsilon`&nbsp;=&nbsp;</p>
+                                    <p id="ep-value-slider"></p>
+                                </div>
+                            </div>
+                            <input class="slider" id="slider-ep" type="range" step="any" oninput="update_scatter()"/>
+                        </div>
+                        <!-- Slider alpham -->
+                        <div class="slider-box">
+                            <div class="text-slider-1 black">
+                                <p>Magnetic diffusivity</p>
+                                <div class="text-slider-2 black">
+                                    <p>`\alpha_m`&nbsp;=&nbsp;</p>
+                                    <p id="alpham-value-slider"></p>
+                                </div>
+                            </div>
+                            <input class="slider" id="slider-alpham" type="range" step="any" oninput="update_scatter()"/>
+                        </div>
+                        <!-- Slider chim -->
+                        <div class="slider-box">
+                            <div class="text-slider-1 black">
+                                <p>Magnetic diffusivity anisotropy</p>
+                                <div class="text-slider-2 black">
+                                    <p>`\chi_m`&nbsp;=&nbsp;</p>
+                                    <p id="chim-value-slider"></p>
+                                </div>
+                            </div>
+                            <input class="slider" id="slider-chim" type="range" step="any" oninput="update_scatter()"/>
+                        </div>
+                        <!-- Slider pm -->
+                        <div class="slider-box">
+                            <div class="text-slider-1 black">
+                                <p>Magnetic Prandtl number</p>
+                                <div class="text-slider-2 black">
+                                    <p>`P_m`&nbsp;=&nbsp;</p>
+                                    <p id="pm-value-slider"></p>
+                                </div>
+                            </div>
+                            <input class="slider" id="slider-pm" type="range" step="any" oninput="update_scatter()"/>
+                        </div>
+                        <!-- Slider alphap -->
+                        <div class="slider-box">
+                            <div class="text-slider-1 black">
+                                <p>Turbulent magnetic pressure</p>
+                                <div class="text-slider-2 black">
+                                    <p>`\alpha_P`&nbsp;=&nbsp;</p>
+                                    <p id="alphap-value-slider"></p>
+                                </div>
+                            </div>
+                            <input class="slider" id="slider-alphap" type="range" step="any" oninput="update_scatter()"/>
+                        </div>
+                    </div>
+                </div>
+                <!---------->
+                <!-- PLOT -->
+                <!---------->
+                <div id="parameter_space_plot">
+                    <div id="parameter_space_scatterplot"></div>
+                    <!-- Labels -->
+                    <div id="parameter_space_label_x1">`log(\mu)`</div>
+                    <div id="parameter_space_label_x2">`log(\kappa)`</div>
+                    <div id="parameter_space_label_y1">`log(\xi)`</div>
+                    <div id="parameter_space_label_y2">`log(\lambda)`</div>
+                    <div id="parameter_space_label_z1">`p`</div>
+                    <div id="parameter_space_label_z2">`\omega`</div>
+                </div>
+            </div>
+
+            <!------------------------->
+            <!------------------------->
+            <!-- SOLUTION PARAMETERS -->
+            <!------------------------->
+            <!------------------------->
+            <div class="box" id="selected_mhd_solution">
+                <!----------->
+                <!-- Title -->
+                <!----------->
+                <div class="app_title white"> <p>SELECTED MHD SOLUTION</p> </div>
+                <!---------------->
+                <!-- Parameters -->
+                <!---------------->
+                <div id="selected_mhd_solution_parameters">
+                    <div class="app_title white">
+                        <p>Input parameters</p>
+                    </div>
+                    <!-- Parameter ep -->
+                    <div class="text-slider-1 white">
+                        <p>Aspect ratio</p>
+                        <div class="text-slider-2 white">
+                            <p>`\epsilon`&nbsp;=&nbsp;</p>
+                            <p id="ep-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter alpham -->
+                    <div class="text-slider-1 white">
+                        <p>Magnetic diffusivity</p>
+                        <div class="text-slider-2 white">
+                            <p>`\alpha_m`&nbsp;=&nbsp;</p>
+                            <p id="alpham-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter chim -->
+                    <div class="text-slider-1 white">
+                        <p>Magnetic diffusivity anisotropy</p>
+                        <div class="text-slider-2 white">
+                            <p>`\chi_m`&nbsp;=&nbsp;</p>
+                            <p id="chim-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter pm -->
+                    <div class="text-slider-1 white">
+                        <p>Magnetic Prandtl number</p>
+                        <div class="text-slider-2 white">
+                            <p>`P_m`&nbsp;=&nbsp;</p>
+                            <p id="pm-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter alphap -->
+                    <div class="text-slider-1 white">
+                        <p>Turbulent magnetic pressure</p>
+                        <div class="text-slider-2 white">
+                            <p>`\alpha_P`&nbsp;=&nbsp;</p>
+                            <p id="alphap-value"></p>
+                        </div>
+                    </div>
+                    <!-- Space -->
+                    <div class="text-slider-1 white"> <p>‎</p> </div>
+                    <div class="app_title white">
+                        <p>Disk parameters</p>
+                    </div>
+                    <!-- Parameter xi -->
+                    <div class="text-slider-1 white">
+                        <p>Ejection index</p>
+                        <div class="text-slider-2 white">
+                            <p>`\xi`&nbsp;=&nbsp;</p>
+                            <p id="xi-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter mu -->
+                    <div class="text-slider-1 white">
+                        <p>Magnetization</p>
+                        <div class="text-slider-2 white">
+                            <p>`\mu`&nbsp;=&nbsp;</p>
+                            <p id="mu-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter p -->
+                    <div class="text-slider-1 white">
+                        <p>Toroidal electric current</p>
+                        <div class="text-slider-2 white">
+                            <p>`p`&nbsp;=&nbsp;</p>
+                            <p id="p-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter q -->
+                    <div class="text-slider-1 white">
+                        <p>Radial electric current</p>
+                        <div class="text-slider-2 white">
+                            <p>`q`&nbsp;=&nbsp;</p>
+                            <p id="q-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter delta -->
+                    <div class="text-slider-1 white">
+                        <p>Rotation</p>
+                        <div class="text-slider-2 white">
+                            <p>`\delta`&nbsp;=&nbsp;</p>
+                            <p id="delta-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter ms -->
+                    <div class="text-slider-1 white">
+                        <p>Sonic Mach number</p>
+                        <div class="text-slider-2 white">
+                            <p>`m_s`&nbsp;=&nbsp;</p>
+                            <p id="ms-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter alphav -->
+                    <div class="text-slider-1 white">
+                        <p>Turbulent viscosity</p>
+                        <div class="text-slider-2 white">
+                            <p>`\alpha_v`&nbsp;=&nbsp;</p>
+                            <p id="alphav-value"></p>
+                        </div>
+                    </div>
+                    <!-- Space -->
+                    <div class="text-slider-1 white"> <p>‎</p> </div>
+                    <div class="app_title white">
+                        <p>Jet parameters</p>
+                    </div>
+                    <!-- Parameter kappa -->
+                    <div class="text-slider-1 white">
+                        <p>Mass load</p>
+                        <div class="text-slider-2 white">
+                            <p>`\kappa`&nbsp;=&nbsp;</p>
+                            <p id="kappabp-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter lambda -->
+                    <div class="text-slider-1 white">
+                        <p>Magnetic lever arm</p>
+                        <div class="text-slider-2 white">
+                            <p>`\lambda`&nbsp;=&nbsp;</p>
+                            <p id="lambdabp-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter omega -->
+                    <div class="text-slider-1 white">
+                        <p>Magnetic surface rotation</p>
+                        <div class="text-slider-2 white">
+                            <p>`\omega`&nbsp;=&nbsp;</p>
+                            <p id="omega-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter E -->
+                    <div class="text-slider-1 white">
+                        <p>Bernoulli invariant</p>
+                        <div class="text-slider-2 white">
+                            <p>`E`&nbsp;=&nbsp;</p>
+                            <p id="E-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter xsm -->
+                    <div class="text-slider-1 white">
+                        <p>SM point altitude</p>
+                        <div class="text-slider-2 white">
+                            <p>`x_{SM}`&nbsp;=&nbsp;</p>
+                            <p id="xsm-value"></p>
+                        </div>
+                    </div>
+                    <!-- Parameter xA -->
+                    <div class="text-slider-1 white">
+                        <p>A point altitude</p>
+                        <div class="text-slider-2 white">
+                            <p>`x_A`&nbsp;=&nbsp;</p>
+                            <p id="xa-value"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!----------->
+        <!----------->
+        <!----------->
+        <!-- APP_2 -->
+        <!----------->
+        <!----------->
+        <!----------->
+        <div id="app_2">    
+            <!-------------->
+            <!-------------->
+            <!-- 3D IMAGE -->
+            <!-------------->
+            <!-------------->
+            <div class="box" id="threed-image">
+                <span>
+                    <!----------->
+                    <!-- Title -->
+                    <!----------->
+                    <div class="app_title white"> <p>3D IMAGE</p> </div>
+                    <!----------->
+                    <!-- Image -->
+                    <!----------->
+                    <!--<img src="./img/black_square.png" id="jet_image">-->
+                    <img src="./assets/img/loading.png" id="loading">
+                </span>
+            </div>
+            <!----------------->
+            <!----------------->
+            <!-- 1D PROFILES -->
+            <!----------------->
+            <!----------------->
+            <div class="box" id="oned-profiles">
+                <!----------->
+                <!-- Title -->
+                <!----------->
+                <div class="app_title black"> <p>1D PROFILES</p> </div>
+                <!-------------->
+                <!-- Profiles -->
+                <!-------------->
+                <div id="oned_profiles_plots">
+                    <div class="oned_profiles_plot">
+                        <div class="label-y-profile">Density `(\rho)`</div>
+                        <div class="oned_profiles_plot_graphe" id="profile_rho"></div>
+                        <div class="label-x-profile">`x`</div>
+                    </div>
+                    <div class="oned_profiles_plot">
+                        <div class="label-y-profile">Pressure `(P)`</div>
+                        <div class="oned_profiles_plot_graphe" id="profile_P"></div>
+                        <div class="label-x-profile">`x`</div>
+                    </div>
+                    <div class="oned_profiles_plot">
+                        <div class="label-y-profile">Temperature `(T)`</div>
+                        <div class="oned_profiles_plot_graphe" id="profile_T"></div>
+                        <div class="label-x-profile">`x`</div>
+                    </div>
+                    <div class="oned_profiles_plot">
+                        <div class="label-y-profile">Velocity `(u_z)`</div>
+                        <div class="oned_profiles_plot_graphe" id="profile_uz"></div>
+                        <div class="label-x-profile">`x`</div>
+                    </div>
+                    <div class="oned_profiles_plot">
+                        <div class="label-y-profile">Velocity `(u_r)`</div>
+                        <div class="oned_profiles_plot_graphe" id="profile_ur"></div>
+                        <div class="label-x-profile">`x`</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+            <button id="button-dl" onclick="download_solution()">Download</button>
+        </div>
+
+
+
+    </main>
+
+    <footer></footer>
+
+    <script src="./js/script_variables.js"></script>
+    <script src="./js/script_header.js"></script>
+    <script src="./js/script_explore.js"></script>
+</body>
+</html>

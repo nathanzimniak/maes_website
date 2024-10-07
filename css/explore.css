@@ -1,0 +1,427 @@
+/*#########################*/
+/*#########################*/
+/*#########################*/
+/*########## APP ##########*/
+/*#########################*/
+/*#########################*/
+/*#########################*/
+
+main {
+    display: flex;
+    flex-direction: column; /* Disposition verticale des enfants */
+    margin: 30px;
+    margin-left: calc(250px + 50px);
+    gap: 30px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+
+/*###########################*/
+/*###########################*/
+/*########## APP 1 ##########*/
+/*###########################*/
+/*###########################*/
+
+#app_1 {
+    display: flex;
+    flex-direction: row; /* Disposition horizontale des enfants */
+    gap: 30px;
+}
+
+#parameter_space {
+    display: flex;
+    flex-direction: row; /* Disposition horizontale des enfants */
+    padding: 25px 35px 25px 35px;
+    gap: 80px;
+    border-radius: 15px;
+    background-color: var(--white);
+}
+
+.app_title {
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 650;
+}
+
+.black {
+    color: var(--black);
+}
+
+.white {
+    color: var(--white);
+}
+
+.box {
+    box-shadow: 3px 3px 10px #dddddd;
+}
+
+
+/*##############################################*/
+/*########## PARAMETER SPACE SETTINGS ##########*/
+/*##############################################*/
+
+#parameter_space_settings {
+    display: flex;
+    flex-direction: column;  /* Disposition verticale des enfants */
+    gap: 20px;
+    border-radius: 15px 0px 0px 15px;
+}
+
+#parameter_space_settings_buttons {
+    display: flex;
+    flex-direction: column; /* Disposition verticale des enfants */
+    gap: 10px;
+}
+
+.double_button {
+    display: flex;
+    flex-direction: row; /* Disposition horizontale des enfants */
+}
+
+.button_left {
+    height: 30px;
+    width: 50%;
+    border: none; /* Supprime la bordure du bouton */
+    cursor: pointer;
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 7px 0px 0px 7px;
+}
+
+.button_right {
+    height: 30px;
+    width: 50%;
+    border: none; /* Supprime la bordure du bouton */
+    cursor: pointer;
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 0px 7px 7px 0px;
+}
+
+#parameter-space-settings-sliders {
+    display: flex;
+    flex-direction: column; /* Aligne verticalement les sliders */
+    gap: 15px;
+}
+
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 250px;
+    height: 7px;
+    background: var(--black);
+    outline: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+  
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--blue_white);
+    cursor: pointer;
+    border-radius: 100px;
+    border: 4px solid var(--black);
+}
+
+.text-slider-1 {
+    display: flex;
+    flex-direction: row; /* Aligne horizontalement le titre du slider, son symbole et sa valeur */
+    justify-content: space-between; /* Titre du slider aligné à gauche, symbole et valeur du slider alignés à droite */
+    width: 250px; /* Modifie la longueur du texte (utile pour solution parameters) */
+    /* Font */
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 450;
+    font-style: oblique 10deg;
+}
+
+.text-slider-2 {
+    display: flex;
+    flex-direction: row; /* Aligne horizontalement le symbole du slider et sa valeur */
+}
+
+/*###########################################*/
+/*########## PARAMETER SPACE PLOT  ##########*/
+/*###########################################*/
+
+#parameter_space_plot {
+    display: flex;
+    flex-direction: column;  /* Disposition verticale des enfants */
+    gap: 15px; /* Gap entre les éléments enfant */
+    border-radius: 0px;
+    position: relative;
+    margin-top: 20px;
+}
+
+#parameter_space_label_x1 {
+    position: absolute;
+    left: 41%;
+    bottom: 10px;
+    opacity: 1.0;
+}
+
+#parameter_space_label_x2 {
+    position: absolute;
+    left: 41%;
+    bottom: 10px;
+}
+
+#parameter_space_label_y1 {
+    position: absolute;
+    top: 43%;
+    left: -15px;
+    transform: rotate(-90deg);
+    opacity: 1.0;
+}
+
+#parameter_space_label_y2 {
+    position: absolute;
+    top: 43%;
+    left: -16px;
+    transform: rotate(-90deg);
+}
+
+#parameter_space_label_z1 {
+    position: absolute;
+    top: 1%;
+    left: 326px;
+    opacity: 1.0;
+}
+
+#parameter_space_label_z2 {
+    position: absolute;
+    top: 1%;
+    left: 325px;
+}
+
+/*#########################################*/
+/*########## SOLUTION PARAMETERS ##########*/
+/*#########################################*/
+
+#selected_mhd_solution {
+    display: flex;
+    flex-direction: column;  /* Disposition verticale des enfants */
+    padding: 25px 35px 25px 35px;
+    gap: 20px;
+    border-radius: 15px;
+    background-color: var(--black);
+}
+
+#selected_mhd_solution_parameters {
+    display: flex;
+    flex-direction: column;  /* Disposition verticale des enfants */
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    height: 320px;
+    gap: 2px;
+    padding-right: 30px;
+}
+
+.text-slider-1 {
+    flex: 0 1 35%;
+    scroll-snap-align: center;
+}
+
+
+
+#selected_mhd_solution_parameters::-webkit-scrollbar {
+    width: 1px;
+}
+
+#selected_mhd_solution_parameters::-webkit-scrollbar-thumb {
+    background: var(--blue_white);
+}
+
+
+
+
+
+/*###########################*/
+/*###########################*/
+/*########## BOX 2 ##########*/
+/*###########################*/
+/*###########################*/
+
+#app_2 {
+    display: flex;
+    flex-direction: row; /* Disposition horizontale des enfants */
+    gap: 30px;
+}
+
+/*##############################*/
+/*########## 3D IMAGE ##########*/
+/*##############################*/
+
+#threed-image {
+    height: auto;
+    width: 100%;
+    padding: 25px 35px 25px 35px;
+    border-radius: 15px;
+    background-color: var(--black);
+    background-image: url('../assets/img/black_square.png');
+    background-size: 185%;
+    background-position: center;
+    transition: background-size 0.3s ease;
+}
+
+#threed-image:hover {
+    background-size: 220%;
+}
+
+#loading {
+    display: none;
+}
+
+/*#################################*/
+/*########## 1D PROFILES ##########*/
+/*#################################*/
+
+#oned-profiles {
+    display: flex;
+    flex-direction: column; /* Disposition verticale des enfants */
+    flex-grow: 1; /* Prend tout l'espace restant */
+    padding: 25px 35px 25px 35px;
+    border-radius: 15px;
+    gap: 25px;
+    background-color: var(--white);
+}
+
+#oned_profiles_plots {
+    display: flex;
+    flex-direction: row; /* Disposition horizontale des enfants */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    width: 770px;
+    gap: 10px;
+}
+
+.oned_profiles_plot {
+    position: relative;
+}
+
+#oned_profiles_plots::-webkit-scrollbar {
+    height: 2px;
+}
+
+#oned_profiles_plots::-webkit-scrollbar-thumb {
+    background: var(--light_black);
+}
+
+#oned_profiles_plots::-webkit-scrollbar-track {
+    background: var(--blue_white);
+}
+
+.oned_profiles_plot_graphe {
+    flex: 1 0 35%;
+    scroll-snap-align: center;
+}
+
+.label-x-profile {
+    position: absolute; /* Position absolue par rapport à son conteneur parent */
+    left: 53%;
+    bottom: 7px;
+    transform: translate(-50%, -50%); /* Déplacer l'élément de moitié de sa propre largeur et hauteur vers la gauche et vers le haut */
+}
+
+.label-y-profile {
+    position: absolute; /* Position absolue par rapport à son conteneur parent */
+    top: 4%;
+    left: 54%;
+    transform: translate(-50%, -50%); /* Déplacer l'élément de moitié de sa propre largeur et hauteur vers la gauche et vers le haut */
+    /* Font */
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 500;
+    font-style: oblique 0deg;
+    color: var(--black);
+}
+
+
+/*##############################*/
+/*##############################*/
+/*########## DOWNLOAD ##########*/
+/*##############################*/
+/*##############################*/
+
+#button-dl {
+    width: 100%;
+    height: 30px;
+    border: none; /* Supprime la bordure du bouton */
+    cursor: pointer;
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 7px;
+    color: var(--white);
+    background-color: var(--black);
+}
+
+
+
+
+
+
+
+/*#############################*/
+/*#############################*/
+/*########## CLASSES ##########*/
+/*#############################*/
+/*#############################*/
+
+
+/*#############################*/
+/*########## BUTTONS ##########*/
+/*#############################*/
+
+
+
+/*#############################*/
+/*########## SLIDERS ##########*/
+/*#############################*/
+
+
+/*##############################*/
+/*########## CAROUSEL ##########*/
+/*##############################*/
+
+
+
+
+/*################################*/
+/*################################*/
+/*########## ANIMATIONS ##########*/
+/*################################*/
+/*################################*/
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
